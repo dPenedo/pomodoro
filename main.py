@@ -18,8 +18,8 @@ def music():
 # Colors:
 
 # Colors
-dark= '#7D080A'
-light= '#ffe5e6'
+dark= '#be161c'
+light= '#ff3030'
 accent = '#A5C9FF'
 # Font
 font = 'Inter'
@@ -86,10 +86,10 @@ class PomodoroTimer:
         self.pomodoro_timer_label.pack( pady=5)
 
         # Tiempo en descanso corto 
-        self.short_break_timer_label = ttk.Label(self.tab2, text="05:00", font=("Inter", 38))
+        self.short_break_timer_label = ttk.Label(self.tab2, text="05:00", font=("Inter", 38), foreground=dark)
         self.short_break_timer_label.pack(pady=5)
         # Tiempo en descanso largo 
-        self.long_break_timer_label = ttk.Label(self.tab3, text="15:00", font=("Inter", 38))
+        self.long_break_timer_label = ttk.Label(self.tab3, text="15:00", font=("Inter", 38), foreground=dark)
         self.long_break_timer_label.pack(pady=5)
 
         # Formato del grid
