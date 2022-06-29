@@ -10,16 +10,16 @@ import pygame
 
 pygame.mixer.init()
 # Sound
+paused = False
 def music():
-        
     pygame.mixer.music.load("sonido/sonido.mp3")
     pygame.mixer.music.play(loops=0)
 
 # Colors:
 
 # Colors
-dark= '#252525'
-light= '#FCFCFC'
+dark= '#7D080A'
+light= '#ffe5e6'
 accent = '#A5C9FF'
 # Font
 font = 'Inter'
@@ -37,20 +37,13 @@ class PomodoroTimer:
 
         # Estilo de pestañas y botones
         self.s = ttk.Style()
-        self.s.configure("TNotebook.Tab", font=("Inter", 14))
-        self.s.configure("TButton", font=("Inter", 14))
+        self.s.configure("TNotebook.Tab", background=light, font=("Inter", 14))
+        self.s.configure("TButton", font=("Inter", 14), background=light)
         self.root.configure(bg=dark)
-        
-
-        # Create a Label Widget to display the text or Image
-        # self.label = Label(self.center_frame, image = img)
-        # self.label.pack()
-
-
 
         self.tabs = ttk.Notebook(self.root)
         self.tabs.pack(fill="both", pady=10, expand=True)
-
+        
         # Pestañas
         self.tab1 = ttk.Frame(self.tabs, width=600, height=100)
         self.tab2 = ttk.Frame(self.tabs, width=600, height=100)
@@ -66,7 +59,7 @@ class PomodoroTimer:
         self.tabs.add(self.tab2, text="Short Break")
         self.tabs.add(self.tab3, text="Long Break")
 
-        self.center_frame = Frame(self.root,  bg='#A5C9FF', relief=FLAT)
+        self.center_frame = Frame(self.root,  bg=dark)
         self.center_frame.pack(side=TOP, pady=10)
         
         # The tomato image
@@ -89,7 +82,7 @@ class PomodoroTimer:
         self.center_frame.label.pack()
 
         # Tiempo en pomodoro
-        self.pomodoro_timer_label = ttk.Label(self.tab1, text="25:00", font=("Inter", 38))
+        self.pomodoro_timer_label = ttk.Label(self.tab1, text="25:00", font=("Inter", 38), foreground=dark)
         self.pomodoro_timer_label.pack( pady=5)
 
         # Tiempo en descanso corto 
@@ -121,7 +114,7 @@ class PomodoroTimer:
         self.music_button.grid(row=1, column=3)
         
 
-        self.pomodoro_counter_label = ttk.Label(self.grid_layout, text="Pomodoros = 0", font=("Inter", 16))
+        self.pomodoro_counter_label = ttk.Label(self.grid_layout, text="Pomodoros = 0", font=("Inter", 16), foreground=dark)
         self.pomodoro_counter_label.grid(row=1, column =0, columnspan= 3, pady=10)
         
 
