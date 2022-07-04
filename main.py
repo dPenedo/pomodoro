@@ -10,10 +10,6 @@ import pygame
 
 pygame.mixer.init()
 # Sound
-paused = False
-def music():
-    pygame.mixer.music.load("sonido/sonido.mp3")
-    pygame.mixer.music.play(loops=0)
 
 # Colors:
 
@@ -22,7 +18,7 @@ dark= '#be161c'
 light= '#ff3030'
 accent = '#A5C9FF'
 # Font
-font = 'Inter'
+font = 'Hack'
 
 
 
@@ -37,8 +33,8 @@ class PomodoroTimer:
 
         # Estilo de pestañas y botones
         self.s = ttk.Style()
-        self.s.configure("TNotebook.Tab", background=light, font=("Inter", 14))
-        self.s.configure("TButton", font=("Inter", 14), background=light)
+        self.s.configure("TNotebook.Tab", background=light, font=(font, 14))
+        self.s.configure("TButton", font=(font, 14), background=light)
         self.root.configure(bg=dark)
 
         self.tabs = ttk.Notebook(self.root)
@@ -82,14 +78,14 @@ class PomodoroTimer:
         self.center_frame.label.pack()
 
         # Tiempo en pomodoro
-        self.pomodoro_timer_label = ttk.Label(self.tab1, text="25:00", font=("Inter", 38), foreground=dark)
+        self.pomodoro_timer_label = ttk.Label(self.tab1, text="25:00", font=(font, 38), foreground=dark)
         self.pomodoro_timer_label.pack( pady=5)
 
         # Tiempo en descanso corto 
-        self.short_break_timer_label = ttk.Label(self.tab2, text="05:00", font=("Inter", 38), foreground=dark)
+        self.short_break_timer_label = ttk.Label(self.tab2, text="05:00", font=(font, 38), foreground=dark)
         self.short_break_timer_label.pack(pady=5)
         # Tiempo en descanso largo 
-        self.long_break_timer_label = ttk.Label(self.tab3, text="15:00", font=("Inter", 38), foreground=dark)
+        self.long_break_timer_label = ttk.Label(self.tab3, text="15:00", font=(font, 38), foreground=dark)
         self.long_break_timer_label.pack(pady=5)
 
         # Formato del grid
@@ -110,11 +106,11 @@ class PomodoroTimer:
         self.reset_button = ttk.Button(self.grid_layout, text="Reset", command=self.reset_clock)
         self.reset_button.grid(row=0, column=3)
         
-        self.music_button = ttk.Button(self.grid_layout, text="Music", command=music)
+        self.music_button = ttk.Button(self.grid_layout, text="Music", command=self.music)
         self.music_button.grid(row=1, column=3)
         
 
-        self.pomodoro_counter_label = ttk.Label(self.grid_layout, text="Pomodoros = 0", font=("Inter", 16), foreground=dark)
+        self.pomodoro_counter_label = ttk.Label(self.grid_layout, text="Pomodoros = 0", font=(font, 16), foreground=dark)
         self.pomodoro_counter_label.grid(row=1, column =0, columnspan= 3, pady=10)
         
 
@@ -123,6 +119,8 @@ class PomodoroTimer:
         self.skipped = False
         self.stopped = False
         self.running = False
+        self.allow_pomodoro_sound = True
+        self.playing_sound = False
 
 
         self.root.mainloop()
@@ -140,7 +138,10 @@ class PomodoroTimer:
         timer_id = self.tabs.index(self.tabs.select()) +1
 
         if timer_id == 1:
+            self.allow_pomodoro_sound=True
             full_seconds = 60 * 25
+            if self.playing_sound == True:
+                self.music()
             while full_seconds > 0 and not self.stopped:
                 minutes, seconds = divmod(full_seconds, 60)
                 self.pomodoro_timer_label.configure(text=f'{minutes:02d}:{seconds:02d}')
@@ -162,6 +163,8 @@ class PomodoroTimer:
 
 
         elif timer_id ==2:
+            pygame.mixer.music.pause()
+            self.allow_pomodoro_sound = False
             full_seconds = 60 * 5
             while full_seconds > 0 and not self.stopped:
                 minutes, seconds = divmod(full_seconds, 60)
@@ -177,6 +180,7 @@ class PomodoroTimer:
 
 
         elif timer_id == 3:
+            pygame.mixer.music.pause()
             full_seconds = 60 * 15
             while full_seconds > 0 and not self.stopped:
                 minutes, seconds = divmod(full_seconds, 60)
@@ -218,6 +222,19 @@ class PomodoroTimer:
     def pause_clock(self):
         self.stopped = True
         self.running = False
+
+    def music(self):
+        self.playing_sound = True
+        if self.allow_pomodoro_sound:
+            pygame.mixer.music.load("sonido/sonido.mp3")
+            pygame.mixer.music.play(loops=0)
+        elif self.allow_pomodoro_sound == False:
+            pygame.mixer.music.pause()
+    def pause(self):
+        pygame.mixer.music.pause()
+
+    
+
 
 
 PomodoroTimer()
