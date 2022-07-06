@@ -240,7 +240,7 @@ class PomodoroTimer:
     def music(self):
         if self.playing_sound:
             pygame.mixer.music.load("sonido/sonido.mp3")
-            pygame.mixer.music.play(loops=0)
+            pygame.mixer.music.play(-1)
             self.playing_sound=False
             self.music_button['image'] = self.sound_icon_resized
 
