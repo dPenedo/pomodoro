@@ -8,11 +8,9 @@ import pygame
 
 
 
+# Sound
 pygame.mixer.init()
 pygame.mixer.music.load("sonido/sonido.mp3")
-# Sound
-
-# Colors:
 
 # Colors
 dark= '#be161c'

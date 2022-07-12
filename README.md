@@ -25,12 +25,12 @@ A simple pomodoro desktop app built with Tkinter. It alternates 25 minutes of co
 
 Whith all requirements accomplished
 Open a terminal and go to the directory called 'pomodoros' which contains all project files.
-Enter this command to run the application:
+Enter this command to run the application from the project's directory:
 ```
 python3 main.py
 ```
 
 ## Future Plans
 
-- Start button is starting from beggining it's paused. I'm going to fix that.
+- Start button is starting from beggining when it's paused. I'm going to fix that.
 - I will add different sounds on a checkbox, like rain sound or white noise.
