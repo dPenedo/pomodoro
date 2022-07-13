@@ -139,6 +139,7 @@ class PomodoroTimer:
         self.root.mainloop()
 
     def start_timer_thread(self):
+        self.paused = False
         if not self.running:
             t = threading.Thread(target=self.start_timer)
             t.start()
@@ -148,6 +149,8 @@ class PomodoroTimer:
         self.stopped = False
         self.skipped = False
         self.running = True
+        self.paused = False
+
         timer_id = self.tabs.index(self.tabs.select()) +1
         
         # Pomodoro running
@@ -157,9 +160,10 @@ class PomodoroTimer:
             while full_seconds > 0 and not self.stopped:
                 minutes, seconds = divmod(full_seconds, 60)
                 self.pomodoro_timer_label.configure(text=f'{minutes:02d}:{seconds:02d}')
-                self.root.update()
-                time.sleep(1)
-                full_seconds -= 1
+                if not self.paused:
+                    self.root.update()
+                    time.sleep(1)
+                    full_seconds -= 1
 
             if full_seconds == 0 and not self.stopped:
                 self.sonido_alerta.play()
@@ -181,8 +185,9 @@ class PomodoroTimer:
                 minutes, seconds = divmod(full_seconds, 60)
                 self.short_break_timer_label.configure(text=f'{minutes:02d}:{seconds:02d}')
                 self.root.update()
-                time.sleep(1)
-                full_seconds -= 1
+                if not self.paused:
+                    time.sleep(1)
+                    full_seconds -= 1
             if full_seconds == 0 and not self.stopped:
                 self.sonido_alerta2.play()
             if not self.stopped or self.skipped:
@@ -197,8 +202,9 @@ class PomodoroTimer:
                 minutes, seconds = divmod(full_seconds, 60)
                 self.long_break_timer_label.configure(text=f'{minutes:02d}:{seconds:02d}')
                 self.root.update()
-                time.sleep(1)
-                full_seconds -= 1
+                if not self.paused:
+                    time.sleep(1)
+                    full_seconds -= 1
             if not self.stopped or self.skipped:
                 self.tabs.select(0)
                 self.start_timer()
@@ -232,8 +238,9 @@ class PomodoroTimer:
 
     def pause_clock(self):
         if self.running and self.music_pause == False:
-            self.stopped = True
-            self.running = False
+            #self.stopped = True
+            #self.running = False
+            self.paused = True
 
     def music(self):
         if self.playing_sound:

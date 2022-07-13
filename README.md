@@ -32,5 +32,4 @@ python3 main.py
 
 ## Future Plans
 
-- Start button is starting from beggining when it's paused. I'm going to fix that.
 - I will add different sounds on a checkbox, like rain sound or white noise.
