@@ -2,6 +2,9 @@
 
 A simple pomodoro desktop app built with Tkinter. It alternates 25 minutes of concentration (pomodoros), with a small pause of 5 minutes and when it makes 4 pomodoros a larger pause of 15 minutes.
 
+
+![Screenshot](./img/screenshot.png)
+
 ## Features
 
 - Start
