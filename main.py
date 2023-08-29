@@ -9,7 +9,6 @@ from PIL import ImageTk, Image
 import pygame
 
 
-
 # Sound
 pygame.mixer.init()
 pygame.mixer.music.load("sonido/sonido.mp3")
@@ -20,7 +19,6 @@ light= '#e05648'
 accent = '#A5C9FF'
 # Font
 font = 'Inter'
-
 
 
 class PomodoroTimer:
@@ -257,17 +255,9 @@ class PomodoroTimer:
 
             self.music_button['image'] = self.mute_icon_resized
 
-
-         
-
-    
     def pause(self):
         self.music_pause = True
         pygame.mixer.music.pause()
-
-    
-
-
 
 PomodoroTimer()
 
