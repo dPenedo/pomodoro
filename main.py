@@ -21,6 +21,7 @@ accent = '#A5C9FF'
 font = 'Inter'
 
 
+
 class PomodoroTimer:
     def __init__(self):
         self.root = tk.Tk()
@@ -259,5 +260,6 @@ class PomodoroTimer:
         self.music_pause = True
         pygame.mixer.music.pause()
 
-PomodoroTimer()
+if __name__ == "__main__":
+    PomodoroTimer()
 
